@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mamy_guide/cubit/cubit.dart';
 import 'package:mamy_guide/cubit/states.dart';
+import 'package:mamy_guide/layouts/home_layout.dart';
 import 'package:mamy_guide/modules/login/login_screen.dart';
 import 'package:mamy_guide/modules/start_screen/start_screen.dart';
 import 'package:mamy_guide/shared/BlocObserver.dart';
@@ -18,10 +19,15 @@ void main() async {
     () async {
       await Firebase.initializeApp();
       await CashedHelper.init();
-      isStart = CashedHelper.getData(key: isStartKey) ?? false;
+      startOpend = CashedHelper.getData(key: isStartKey) ?? false;
+      uId = CashedHelper.getData(key: uIdKey) ?? '';
       Widget startScreen = const StartScreen();
-      if (isStart) {
-        startScreen = const LoginScreen();
+      if (startOpend) {
+        if (uId.isEmpty) {
+          startScreen = const LoginScreen();
+        } else {
+          startScreen = HomeLayout();
+        }
       } else {
         startScreen = const StartScreen();
       }
