@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   BlocOverrides.runZoned(
     () async {
+      await Firebase.initializeApp();
       await CashedHelper.init();
       isStart = CashedHelper.getData(key: isStartKey) ?? false;
       Widget startScreen = const StartScreen();
