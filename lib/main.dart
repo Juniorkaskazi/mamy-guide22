@@ -19,6 +19,7 @@ void main() async {
     () async {
       await Firebase.initializeApp();
       await CashedHelper.init();
+      print(uId);
       startOpend = CashedHelper.getData(key: isStartKey) ?? false;
       uId = CashedHelper.getData(key: uIdKey) ?? '';
       Widget startScreen = const StartScreen();
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) {
-        return AppCubit();
+        return AppCubit()..getUserData();
       },
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {},
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primaryColor: const Color(0xFF262A53),
               primarySwatch: primarySwatchColor,
+              scaffoldBackgroundColor: const Color(0xFF262A53),
             ),
             debugShowCheckedModeBanner: false,
             home: startScreen,

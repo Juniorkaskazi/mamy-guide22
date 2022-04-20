@@ -21,8 +21,8 @@ class UserModel {
     this.bloodType,
   );
 
-  UserModel.fromJason(Map<String, dynamic> json) {
-    uId = json['uId'];
+  UserModel.fromJason(Map<String, dynamic>? json) {
+    uId = json!['uId'];
     name = json['name'];
     email = json['email'];
     phoneNumber = json['phoneNumber'];

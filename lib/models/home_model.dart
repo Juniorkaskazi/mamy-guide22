@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
+
 class HomeModel {
   String? name;
   String? image;
-  Function onTap;
+  Widget nextPage;
 
-  HomeModel({this.name, this.image, required this.onTap});
+  HomeModel({this.name, this.image, required this.nextPage});
 }
