@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mamy_guide/cubit/cubit.dart';
-import 'package:mamy_guide/cubit/states.dart';
 import 'package:mamy_guide/layouts/home_layout.dart';
 import 'package:mamy_guide/modules/login/login_screen.dart';
 import 'package:mamy_guide/modules/start_screen/start_screen.dart';
@@ -13,16 +12,18 @@ import 'package:mamy_guide/shared/components/constants.dart';
 import 'package:mamy_guide/shared/network/local/cashed_helper.dart';
 import 'package:mamy_guide/shared/styles/colors.dart';
 
+import 'cubit/states.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   BlocOverrides.runZoned(
     () async {
       await Firebase.initializeApp();
       await CashedHelper.init();
-      print(uId);
       startOpend = CashedHelper.getData(key: isStartKey) ?? false;
       uId = CashedHelper.getData(key: uIdKey) ?? '';
       Widget startScreen = const StartScreen();
+      print(uId);
       if (startOpend) {
         if (uId.isEmpty) {
           startScreen = const LoginScreen();
@@ -47,23 +48,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) {
+      create: (context) {
         return AppCubit()..getUserData();
       },
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
-        builder: (BuildContext context, AppStates state) {
-          return MaterialApp(
-            theme: ThemeData(
-              primaryColor: const Color(0xFF262A53),
-              primarySwatch: primarySwatchColor,
-              scaffoldBackgroundColor: const Color(0xFF262A53),
-            ),
-            debugShowCheckedModeBanner: false,
-            home: startScreen,
-          );
-        },
-      ),
+          listener: (context, states) {},
+          builder: (context, states) {
+            return MaterialApp(
+              theme: ThemeData(
+                primaryColor: const Color(0xFF262A53),
+                primarySwatch: primarySwatchColor,
+                scaffoldBackgroundColor: const Color(0xFF262A53),
+                fontFamily: 'Arlrdbd',
+              ),
+              debugShowCheckedModeBanner: false,
+              home: startScreen,
+            );
+          }),
     );
   }
 }

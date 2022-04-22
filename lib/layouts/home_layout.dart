@@ -8,114 +8,118 @@ import '../modules/login/login_screen.dart';
 import '../shared/components/constants.dart';
 
 class HomeLayout extends StatelessWidget {
-  HomeLayout({Key? key}) : super(key: key);
+  const HomeLayout({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, states) {},
       builder: (context, states) {
-        return Scaffold(
-          key: AppCubit.get(context).scaffoldKey,
-          drawer: Drawer(
-            backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
-            elevation: 10.0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 35.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    color: Theme.of(context).primaryColor.withOpacity(0.9),
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      children: [
-                        const Image(
-                          image: AssetImage('assets/images/child_pic.png'),
+        return FutureBuilder(
+          future: AppCubit.get(context).getUserData(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            return Scaffold(
+              key: AppCubit.get(context).scaffoldKey,
+              drawer: Drawer(
+                backgroundColor:
+                    Theme.of(context).primaryColor.withOpacity(0.1),
+                elevation: 10.0,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 35.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        color: Theme.of(context).primaryColor.withOpacity(0.9),
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          children: [
+                            const Image(
+                              image: AssetImage('assets/images/child_pic.png'),
+                            ),
+                            const SizedBox(
+                              width: 20.0,
+                            ),
+                            Text(
+                              AppCubit.get(context)
+                                  .userModel!
+                                  .babyName
+                                  .toString(),
+                              style: const TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFFFE3E3),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(
-                          width: 20.0,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            InkWell(
+                              onTap: () {},
+                              child: Row(
+                                children: const [
+                                  Icon(
+                                    Icons.add,
+                                    color: Color(0xFFFFA0A0),
+                                  ),
+                                  SizedBox(
+                                    width: 15.0,
+                                  ),
+                                  Text(
+                                    'Add baby',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Color(0xFFFFA0A0),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                CashedHelper.removeData(key: uIdKey);
+                                Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                    builder: (_) => LoginScreen(),
+                                  ),
+                                  (route) => false,
+                                );
+                              },
+                              child: Row(
+                                children: const [
+                                  Icon(
+                                    Icons.logout,
+                                    color: Color(0xFFFFA0A0),
+                                  ),
+                                  SizedBox(
+                                    width: 15.0,
+                                  ),
+                                  Text(
+                                    'Log Out',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Color(0xFFFFA0A0),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          AppCubit.get(context).userModel!.babyName.toString(),
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFFFE3E3),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        InkWell(
-                          onTap: () {},
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.add,
-                                color: Color(0xFFFFA0A0),
-                              ),
-                              SizedBox(
-                                width: 15.0,
-                              ),
-                              Text(
-                                'Add baby',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Color(0xFFFFA0A0),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            CashedHelper.removeData(key: uIdKey);
-                            Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                builder: (_) => LoginScreen(),
-                              ),
-                              (route) => false,
-                            );
-                          },
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.logout,
-                                color: Color(0xFFFFA0A0),
-                              ),
-                              SizedBox(
-                                width: 15.0,
-                              ),
-                              Text(
-                                'Log Out',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Color(0xFFFFA0A0),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-          body: FutureBuilder(
-            future: AppCubit.get(context).getUserData(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              return Padding(
+              body: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 25.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -156,9 +160,9 @@ class HomeLayout extends StatelessWidget {
                     ),
                   ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         );
       },
     );

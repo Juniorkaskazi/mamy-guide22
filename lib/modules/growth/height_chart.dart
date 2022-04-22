@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mamy_guide/cubit/cubit.dart';
 import 'package:mamy_guide/cubit/states.dart';
-import 'package:mamy_guide/modules/growth/height_chart.dart';
 import 'package:mamy_guide/modules/growth/weight_chart_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class WeightChartScreen extends StatelessWidget {
-  const WeightChartScreen({Key? key}) : super(key: key);
+class HeightChartScreen extends StatelessWidget {
+  const HeightChartScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    AppCubit.get(context).fillWeightChartData();
+    AppCubit.get(context).fillHeightChartData();
     print(AppCubit.get(context).weightChartData);
     return BlocConsumer<AppCubit, AppStates>(
       listener: (BuildContext context, AppStates states) {},
@@ -24,19 +23,6 @@ class WeightChartScreen extends StatelessWidget {
             iconTheme: IconThemeData(
               color: Theme.of(context).primaryColor,
             ),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HeightChartScreen(),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.arrow_forward),
-              )
-            ],
           ),
           body: Container(
             width: double.infinity,
@@ -61,7 +47,7 @@ class WeightChartScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const Text(
-                  '(Weight)',
+                  '(Height)',
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
@@ -75,27 +61,27 @@ class WeightChartScreen extends StatelessWidget {
                 SfCartesianChart(
                   primaryXAxis: CategoryAxis(),
                   series: <ChartSeries>[
-                    ColumnSeries<NormalWeightChartData, String>(
-                      dataSource: AppCubit.get(context).normalWeightChartData,
-                      xValueMapper: (NormalWeightChartData data, _) =>
+                    ColumnSeries<NormalHeightChartData, String>(
+                      dataSource: AppCubit.get(context).normalHeightChartData,
+                      xValueMapper: (NormalHeightChartData data, _) =>
                           data.month,
-                      yValueMapper: (NormalWeightChartData data, _) =>
-                          data.weight,
+                      yValueMapper: (NormalHeightChartData data, _) =>
+                          data.height,
                       name: 'Normal',
                       xAxisName: 'Month',
-                      yAxisName: 'Weight',
+                      yAxisName: 'Height',
                       legendIconType: LegendIconType.circle,
                       legendItemText: 'Normal',
                       color: const Color(0xFF262A53),
                       isVisibleInLegend: true,
                     ),
-                    ColumnSeries<WeightChartData, String>(
-                      dataSource: AppCubit.get(context).weightChartData,
-                      xValueMapper: (WeightChartData data, _) => data.month,
-                      yValueMapper: (WeightChartData data, _) => data.weight,
+                    ColumnSeries<HeightChartData, String>(
+                      dataSource: AppCubit.get(context).heightChartData,
+                      xValueMapper: (HeightChartData data, _) => data.month,
+                      yValueMapper: (HeightChartData data, _) => data.height,
                       name: 'Actual',
                       xAxisName: 'Month',
-                      yAxisName: 'Weight',
+                      yAxisName: 'Height',
                       legendIconType: LegendIconType.circle,
                       legendItemText: 'Actual',
                       color: const Color(0xFF628395),
