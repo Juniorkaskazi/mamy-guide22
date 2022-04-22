@@ -1,3 +1,4 @@
+import 'package:counter/counter.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/section_of_ages_model.dart';
@@ -89,4 +90,37 @@ Widget sectionOfAgeListItem(
           ),
         ),
       ),
+    );
+
+Widget buildDetailsListItem({
+  required BuildContext context,
+  required int index,
+  required String text,
+  required int min,
+  required int max,
+  required int initial,
+  required Function(num) onValueChanged,
+}) =>
+    Row(
+      children: [
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+        const Spacer(),
+        Counter(
+          min: min,
+          max: max,
+          initial: initial,
+          step: 1,
+          onValueChanged: (num) {
+            onValueChanged(num);
+          },
+          configuration: DefaultConfiguration(),
+        ),
+      ],
     );

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mamy_guide/cubit/cubit.dart';
 import 'package:mamy_guide/cubit/states.dart';
+import 'package:mamy_guide/modules/sections_of_age/normal_growth_rate_screen.dart';
 import 'package:mamy_guide/modules/sections_of_age/nutrition_screen.dart';
+import 'package:mamy_guide/modules/sections_of_age/sleeping_screen.dart';
+import 'package:mamy_guide/modules/sections_of_age/vaccines_screen.dart';
 import 'package:mamy_guide/shared/components/components.dart';
 
 import '../../models/section_of_ages_model.dart';
@@ -12,12 +15,13 @@ class Routine1To4Screen extends StatelessWidget {
 
   List<SectionOfAgesModel> list = [
     SectionOfAgesModel(
-        "Nutrition", "assets/images/ROUTINE1.png", NutritionScreen()),
-    SectionOfAgesModel("Sleeping", "assets/images/ROUTINE2.png", Container()),
+        "Nutrition", "assets/images/ROUTINE1.png", const NutritionScreen()),
     SectionOfAgesModel(
-        "Vaccinations", "assets/images/ROUTINE3.png", Container()),
+        "Sleeping", "assets/images/ROUTINE2.png", const SleepingScreen()),
     SectionOfAgesModel(
-        "Normal Growth Data", "assets/images/ROUTINE4.png", Container()),
+        "Vaccinations", "assets/images/ROUTINE3.png", const VaccinesScreen()),
+    SectionOfAgesModel("Normal Growth Data", "assets/images/ROUTINE4.png",
+        const NormalGrowthRateScreen()),
   ];
   @override
   Widget build(BuildContext context) {
