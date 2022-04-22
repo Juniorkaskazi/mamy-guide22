@@ -71,6 +71,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
+  counter:
+    dependency: "direct main"
+    description:
+      name: counter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -385,6 +392,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  syncfusion_flutter_charts:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_charts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "20.1.50"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "20.1.50"
   term_glyph:
     dependency: transitive
     description:
