@@ -37,13 +37,15 @@ dependencies:
   bloc:
   flutter_bloc:
   shared_preferences:
-  radio_group_v2:
+  group_radio_button:
   fluttertoast:
   firebase_auth:
   firebase_core:
   cloud_firestore:
   counter:
   syncfusion_flutter_charts:
+  flutter_conditional_rendering:
+  adobe_xd:
 
 dev_dependencies:
   flutter_test:
