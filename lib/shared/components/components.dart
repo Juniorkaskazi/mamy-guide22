@@ -124,3 +124,51 @@ Widget buildDetailsListItem({
         ),
       ],
     );
+
+Widget homeScreenItemBuilder({
+  required BuildContext context,
+  required String name,
+  required String image,
+  required Widget nextPage,
+}) =>
+    InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => nextPage,
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50.0),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Card(
+          color: const Color(0xFFffe3e3),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Image(
+                  image: AssetImage(image.toString()),
+                  height: 70.0,
+                ),
+                const Spacer(),
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                    color: Color(0xFF262a53),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Spacer(),
+                const Spacer(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );

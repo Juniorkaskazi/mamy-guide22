@@ -8,14 +8,28 @@ class ChoseBirthDayDateSuccessState extends RegistrationStates {}
 
 class ChoseBirthDayDateErrorState extends RegistrationStates {}
 
-class AddNewUserLoadingState extends RegistrationStates {}
+class AddNewParentLoadingState extends RegistrationStates {}
 
-class AddNewUserSuccessState extends RegistrationStates {}
+class AddNewParentSuccessState extends RegistrationStates {}
 
-class AddNewUserErrorState extends RegistrationStates {}
+class AddNewParentErrorState extends RegistrationStates {}
 
-class CreateNewUserLoadingState extends RegistrationStates {}
+class CreateNewParentLoadingState extends RegistrationStates {}
 
-class CreateNewUserSuccessState extends RegistrationStates {}
+class CreateNewParentSuccessState extends RegistrationStates {}
 
-class CreateNewUserErrorState extends RegistrationStates {}
+class CreateNewParentErrorState extends RegistrationStates {}
+
+class AddNewDoctorLoadingState extends RegistrationStates {}
+
+class AddNewDoctorSuccessState extends RegistrationStates {}
+
+class AddNewDoctorErrorState extends RegistrationStates {}
+
+class CreateNewDoctorLoadingState extends RegistrationStates {}
+
+class CreateNewDoctorSuccessState extends RegistrationStates {}
+
+class CreateNewDoctorErrorState extends RegistrationStates {}
+
+class RegistrationChangeTypeOfUserState extends RegistrationStates {}

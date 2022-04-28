@@ -20,11 +20,13 @@ void main() async {
     () async {
       await Firebase.initializeApp();
       await CashedHelper.init();
-      startOpend = CashedHelper.getData(key: isStartKey) ?? false;
+      startOpened = CashedHelper.getData(key: isStartKey) ?? false;
       uId = CashedHelper.getData(key: uIdKey) ?? '';
-      Widget startScreen = const StartScreen();
+      userType = CashedHelper.getData(key: userTypeKey) ?? '';
+      print(userType);
       print(uId);
-      if (startOpend) {
+      Widget startScreen = const StartScreen();
+      if (startOpened) {
         if (uId.isEmpty) {
           startScreen = const LoginScreen();
         } else {
@@ -59,6 +61,13 @@ class MyApp extends StatelessWidget {
                 primaryColor: const Color(0xFF262A53),
                 primarySwatch: primarySwatchColor,
                 scaffoldBackgroundColor: const Color(0xFF262A53),
+                appBarTheme: const AppBarTheme(
+                  titleTextStyle: TextStyle(
+                    fontFamily: 'Arlrdbd',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 fontFamily: 'Arlrdbd',
               ),
               debugShowCheckedModeBanner: false,

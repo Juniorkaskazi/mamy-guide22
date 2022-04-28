@@ -30,7 +30,7 @@ class StartScreen extends StatelessWidget {
               MaterialButton(
                 onPressed: () {
                   CashedHelper.putData(key: isStartKey, value: true);
-                  startOpend = true;
+                  startOpened = true;
                   Navigator.push(
                     context,
                     MaterialPageRoute(

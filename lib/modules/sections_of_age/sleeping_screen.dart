@@ -50,7 +50,7 @@ class SleepingScreen extends StatelessWidget {
                     Image(
                       image: const AssetImage(
                           'assets/images/sleeping_child_pic.png'),
-                      width: MediaQuery.of(context).size.width / 1.25,
+                      height: MediaQuery.of(context).size.height / 4.5,
                     ),
                     const Spacer(),
                     Container(
@@ -119,7 +119,7 @@ class SleepingScreen extends StatelessWidget {
               alignment: AlignmentDirectional.centerEnd,
               child: Image(
                 image: const AssetImage('assets/images/half-moon.png'),
-                height: MediaQuery.of(context).size.height / 14.5,
+                height: MediaQuery.of(context).size.height / 18.5,
               ),
             ),
           ),

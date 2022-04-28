@@ -17,9 +17,10 @@ class BabyHeightDetailsScreen extends StatelessWidget {
         title: const Text('Baby Height Details'),
         centerTitle: true,
         titleTextStyle: TextStyle(
-          fontSize: 25.0,
+          fontSize: 20.0,
           color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.bold,
+          fontFamily: 'Arlrdbd',
         ),
         iconTheme: IconThemeData(
           color: Theme.of(context).primaryColor,

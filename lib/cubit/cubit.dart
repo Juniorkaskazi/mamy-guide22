@@ -3,7 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mamy_guide/cubit/states.dart';
-import 'package:mamy_guide/models/user_model.dart';
+import 'package:mamy_guide/models/doctor_model.dart';
+import 'package:mamy_guide/models/message_model.dart';
+import 'package:mamy_guide/models/parent_model.dart';
+import 'package:mamy_guide/modules/common_diseases/drought_screen.dart';
+import 'package:mamy_guide/modules/common_diseases/stomach_cramps_screen.dart';
 import 'package:mamy_guide/modules/growth/weight_chart_data.dart';
 import 'package:mamy_guide/shared/components/constants.dart';
 
@@ -65,6 +69,44 @@ class AppCubit extends Cubit<AppStates> {
     ),
   ];
 
+  List<HomeModel> commonDiseasesModel = [
+    HomeModel(
+      image: 's',
+      name: 'Stomach Cramps',
+      nextPage: const StomachCrampsScreen(),
+    ),
+    HomeModel(
+      image: 'dr',
+      name: 'Drought',
+      nextPage: const DroughtScreen(),
+    ),
+    HomeModel(
+      image: 'fe',
+      name: 'Fever',
+      nextPage: const StomachCrampsScreen(),
+    ),
+    HomeModel(
+      image: 'vs',
+      name: 'Constipation',
+      nextPage: const Scaffold(),
+    ),
+    HomeModel(
+      image: '3',
+      name: 'Conjunctivities',
+      nextPage: const Scaffold(),
+    ),
+    HomeModel(
+      image: '635',
+      name: 'Juandice',
+      nextPage: const Scaffold(),
+    ),
+    HomeModel(
+      image: '51',
+      name: 'Umbilical Hernia',
+      nextPage: const Scaffold(),
+    ),
+  ];
+
   List<int> childWeights = List.generate(6, (index) => index);
   List<int> childHeights = List.generate(6, (index) => index);
   List<double> normalWeight = [
@@ -111,25 +153,68 @@ class AppCubit extends Cubit<AppStates> {
     '-Rotavirus (RV) (2nd dose)',
   ];
 
-  UserModel? userModel;
+  ParentModel? parentModel;
+  DoctorModel? doctorModel;
+
   Future<void> getUserData() async {
     if (uId.isNotEmpty) {
-      // emit(GetUserDataLoadingState());
-      return FirebaseFirestore.instance
-          .collection('users')
-          .doc(uId)
-          .get()
-          .then((value) {
-        userModel = UserModel.fromJason(value.data());
-        // emit(GetUserDataSuccessState());
-      }).catchError((error) {
-        print(error.toString());
-        // emit(GetUserDataErrorState());
-      });
+      if (userType == parentKey) {
+        return FirebaseFirestore.instance
+            .collection('parents')
+            .doc(uId)
+            .get()
+            .then((value) {
+          parentModel = ParentModel.fromJason(value.data());
+        }).catchError((error) {
+          print(error.toString());
+        });
+      } else if (userType == doctorKey) {
+        return FirebaseFirestore.instance
+            .collection('doctors')
+            .doc(uId)
+            .get()
+            .then((value) {
+          doctorModel = DoctorModel.fromJason(value.data());
+        }).catchError((error) {
+          print(error.toString());
+        });
+      }
     }
   }
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
+
+  List<DoctorModel> doctorsList = [];
+  List<ParentModel> parentList = [];
+
+  void getAllDoctors() async {
+    emit(GetAllDoctorsLoadingState());
+    doctorsList = [];
+    await FirebaseFirestore.instance.collection('doctors').get().then((value) {
+      for (var element in value.docs) {
+        doctorsList.add(DoctorModel.fromJason(element.data()));
+      }
+      emit(GetAllDoctorsSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetAllDoctorsErrorState());
+    });
+  }
+
+  void getAllParents() async {
+    emit(GetAllParentsLoadingState());
+    parentList = [];
+    await FirebaseFirestore.instance.collection('parents').get().then((value) {
+      for (var element in value.docs) {
+        parentList.add(ParentModel.fromJason(element.data()));
+      }
+      emit(GetAllParentsSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetAllParentsErrorState());
+    });
+  }
+
   void openDrawer(BuildContext context) {
     scaffoldKey.currentState!.openDrawer();
     emit(OpenDrawerState());
@@ -150,6 +235,107 @@ class AppCubit extends Cubit<AppStates> {
       normalHeightChartData
           .add(NormalHeightChartData(ageListText[i], normalHeight[i]));
       print(i);
+    }
+  }
+
+  List<MessageModel> messagesList = [];
+  var messageController = TextEditingController();
+  //send message
+  void sendMessage({
+    required String message,
+    required String receiverId,
+  }) async {
+    if (messageController.text.isNotEmpty) {
+      emit(SendMessagesLoadingState());
+      MessageModel messageModel = MessageModel(
+          sender: uId,
+          receiver: receiverId,
+          message: message,
+          date: DateTime.now().toString());
+      if (userType == parentKey) {
+        await FirebaseFirestore.instance
+            .collection('parents')
+            .doc(uId)
+            .collection('chats')
+            .doc(receiverId)
+            .collection('messages')
+            .add(messageModel.toJson())
+            .then((value) {
+          emit(SendMessagesSuccessState());
+        }).catchError((error) {
+          print(error.toString());
+          emit(SendMessagesErrorState());
+        });
+
+        await FirebaseFirestore.instance
+            .collection('doctors')
+            .doc(receiverId)
+            .collection('chats')
+            .doc(uId)
+            .collection('messages')
+            .add(messageModel.toJson())
+            .then((value) {
+          emit(SendMessagesSuccessState());
+        }).catchError((error) {
+          print(error.toString());
+          emit(SendMessagesErrorState());
+        });
+      } else {
+        await FirebaseFirestore.instance
+            .collection('doctors')
+            .doc(uId)
+            .collection('chats')
+            .doc(receiverId)
+            .collection('messages')
+            .add(messageModel.toJson())
+            .then((value) {
+          emit(SendMessagesSuccessState());
+        }).catchError((error) {
+          print(error.toString());
+          emit(SendMessagesErrorState());
+        });
+
+        await FirebaseFirestore.instance
+            .collection('parents')
+            .doc(receiverId)
+            .collection('chats')
+            .doc(uId)
+            .collection('messages')
+            .add(messageModel.toJson())
+            .then((value) {
+          emit(SendMessagesSuccessState());
+        }).catchError((error) {
+          print(error.toString());
+          emit(SendMessagesErrorState());
+        });
+      }
+    }
+  }
+
+  //get messages
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getMessages({
+    required String receiverId,
+  }) {
+    if (userType == parentKey) {
+      messagesList = [];
+      return FirebaseFirestore.instance
+          .collection('parents')
+          .doc(uId)
+          .collection('chats')
+          .doc(receiverId)
+          .collection('messages')
+          .orderBy('date')
+          .snapshots();
+    } else {
+      messagesList = [];
+      return FirebaseFirestore.instance
+          .collection('doctors')
+          .doc(uId)
+          .collection('chats')
+          .doc(receiverId)
+          .collection('messages')
+          .orderBy('date')
+          .snapshots();
     }
   }
 }

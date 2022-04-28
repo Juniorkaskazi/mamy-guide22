@@ -30,12 +30,6 @@
 @import fluttertoast;
 #endif
 
-#if __has_include(<radio_group_v2/RadioGroupV2Plugin.h>)
-#import <radio_group_v2/RadioGroupV2Plugin.h>
-#else
-@import radio_group_v2;
-#endif
-
 #if __has_include(<shared_preferences_ios/FLTSharedPreferencesPlugin.h>)
 #import <shared_preferences_ios/FLTSharedPreferencesPlugin.h>
 #else
@@ -49,7 +43,6 @@
   [FLTFirebaseAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseAuthPlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FluttertoastPlugin registerWithRegistrar:[registry registrarForPlugin:@"FluttertoastPlugin"]];
-  [RadioGroupV2Plugin registerWithRegistrar:[registry registrarForPlugin:@"RadioGroupV2Plugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
 }
 

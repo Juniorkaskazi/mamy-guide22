@@ -116,7 +116,7 @@ class VaccinesScreen extends StatelessWidget {
                             (e) => Text(
                               e,
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13.0,
                                 color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.bold,
                               ),

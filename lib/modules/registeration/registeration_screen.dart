@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:group_radio_button/group_radio_button.dart';
 import 'package:mamy_guide/modules/registeration/cubit/registration_cubit.dart';
+import 'package:mamy_guide/modules/registeration/doctor_screen.dart';
+import 'package:mamy_guide/modules/registeration/parent_screen.dart';
+import 'package:mamy_guide/user_type_enum.dart';
 
 import '../../layouts/home_layout.dart';
-import '../../shared/components/components.dart';
 import 'cubit/registration_states.dart';
 
 class RegistrationScreen extends StatelessWidget {
@@ -25,173 +28,33 @@ class RegistrationScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Row(
-                      children: const [
-                        Text(
-                          'Parent info ',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Color(0xFFffa0a0),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: Color(0xFFffa0a0),
-                            thickness: 2.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultTextFormField(
-                      hint: 'Name',
-                      prefixIcon: Icons.person,
-                      type: TextInputType.name,
-                      controller: RegistrationCubit.get(context).nameController,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultTextFormField(
-                      hint: 'Email',
-                      prefixIcon: Icons.email,
-                      type: TextInputType.emailAddress,
-                      controller:
-                          RegistrationCubit.get(context).emailController,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultTextFormField(
-                      hint: 'Password',
-                      prefixIcon: Icons.password,
-                      type: TextInputType.visiblePassword,
-                      isPassword: true,
-                      controller:
-                          RegistrationCubit.get(context).passwordController,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultTextFormField(
-                      hint: 'Phone Number',
-                      prefixIcon: Icons.phone,
-                      type: TextInputType.phone,
-                      controller:
-                          RegistrationCubit.get(context).phoneNumberController,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    Row(
-                      children: const [
-                        Text(
-                          'Baby info ',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Color(0xFFffa0a0),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: Color(0xFFffa0a0),
-                            thickness: 2.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultTextFormField(
-                      hint: 'Baby Name',
-                      prefixIcon: Icons.person,
-                      type: TextInputType.name,
-                      controller:
-                          RegistrationCubit.get(context).babyNameController,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultTextFormField(
-                      hint: 'Birthday',
-                      prefixIcon: Icons.date_range,
-                      type: TextInputType.datetime,
-                      isReadOnly: true,
-                      controller:
-                          RegistrationCubit.get(context).birthDayController,
-                      onTap: () {
-                        RegistrationCubit.get(context)
-                            .choseBirthDayDate(context: context);
+                    RadioGroup<UserType>.builder(
+                      groupValue:
+                          RegistrationCubit.get(context).typeOfUserValue,
+                      onChanged: (UserType? value) {
+                        RegistrationCubit.get(context).changeTypeOfUser(value!);
                       },
+                      items: RegistrationCubit.get(context).typeOfUser,
+                      itemBuilder: (item) => RadioButtonBuilder(item.name),
+                      textStyle: const TextStyle(
+                        color:
+                            Color.fromRGBO(255, 160, 160, 0.9176470588235294),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      activeColor: const Color.fromRGBO(
+                        255,
+                        160,
+                        160,
+                        0.9176470588235294,
+                      ),
+                      horizontalAlignment: MainAxisAlignment.center,
+                      direction: Axis.horizontal,
                     ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultTextFormField(
-                      hint: 'Gender',
-                      prefixIcon: Icons.male,
-                      type: TextInputType.text,
-                      controller:
-                          RegistrationCubit.get(context).genderController,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultTextFormField(
-                      hint: 'Address',
-                      prefixIcon: Icons.home,
-                      type: TextInputType.streetAddress,
-                      controller:
-                          RegistrationCubit.get(context).addressController,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    defaultTextFormField(
-                      hint: 'Blood Type',
-                      prefixIcon: Icons.bloodtype,
-                      type: TextInputType.text,
-                      controller:
-                          RegistrationCubit.get(context).bloodTypeController,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    Align(
-                      alignment: AlignmentDirectional.bottomEnd,
-                      child: state is! AddNewUserLoadingState &&
-                              state is! CreateNewUserLoadingState
-                          ? MaterialButton(
-                              onPressed: () {
-                                RegistrationCubit.get(context)
-                                    .addNewUser()
-                                    .then((value) {
-                                  // Navigator.pushAndRemoveUntil(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (_) => HomeLayout(),
-                                  //   ),
-                                  //   (route) => false,
-                                  // );
-                                });
-                              },
-                              child: const Text(
-                                'Submit',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Color(0xFFFFA0A0),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              color: const Color(0xFF628395),
-                            )
-                          : const Center(child: CircularProgressIndicator()),
-                    ),
+                    RegistrationCubit.get(context).typeOfUserValue ==
+                            UserType.Parent
+                        ? const ParentScreen()
+                        : const DoctorScreen(),
                   ],
                 ),
               ),
@@ -199,17 +62,19 @@ class RegistrationScreen extends StatelessWidget {
           );
         },
         listener: (BuildContext context, RegistrationStates state) {
-          if (state is CreateNewUserSuccessState) {
+          if (state is CreateNewParentSuccessState ||
+              state is CreateNewDoctorSuccessState) {
             Fluttertoast.showToast(msg: 'Register Successfully');
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (_) => HomeLayout(),
+                builder: (_) => const HomeLayout(),
               ),
               (route) => false,
             );
           }
-          if (state is AddNewUserErrorState) {
+          if (state is AddNewParentErrorState ||
+              state is AddNewDoctorErrorState) {
             Fluttertoast.showToast(msg: 'Register Error!!');
           }
         },

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:group_radio_button/group_radio_button.dart';
 import 'package:mamy_guide/modules/login/cubit/login_cubit.dart';
 import 'package:mamy_guide/modules/login/cubit/login_states.dart';
-import 'package:radio_group_v2/radio_group_v2.dart';
+import 'package:mamy_guide/shared/components/constants.dart';
 
 import '../../layouts/home_layout.dart';
 import '../../shared/components/components.dart';
+import '../../user_type_enum.dart';
 import '../registeration/registeration_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -20,19 +22,40 @@ class LoginScreen extends StatelessWidget {
       },
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (BuildContext context, LoginStates state) {
-          if (state is LoginUserSuccessState) {
-            Fluttertoast.showToast(msg: 'Login Successfully');
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (_) => HomeLayout(),
-              ),
-              (route) => false,
-            );
+          if (state is LoginParentSuccessState) {
+            print(userType);
+            if (userType == parentKey) {
+              Fluttertoast.showToast(msg: 'Login Successfully');
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const HomeLayout(),
+                ),
+                (route) => false,
+              );
+            }
           }
+          if (state is LoginDoctorSuccessState) {
+            if (userType == doctorKey) {
+              Fluttertoast.showToast(msg: 'Login Successfully');
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const HomeLayout(),
+                ),
+                (route) => false,
+              );
+            }
+          }
+
           if (state is LoginUserErrorState) {
             Fluttertoast.showToast(
                 msg: 'Login error!!\ncheck your email and password');
+          }
+
+          if (state is LoginParentErrorState ||
+              state is LoginDoctorErrorState) {
+            Fluttertoast.showToast(msg: 'Check user type and try again');
           }
         },
         builder: (BuildContext context, LoginStates state) {
@@ -110,26 +133,32 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    RadioGroup(
-                      values: ["Parent", "Doctor"],
-                      indexOfDefault: 0,
-                      orientation: RadioGroupOrientation.Horizontal,
-                      decoration: const RadioGroupDecoration(
-                        spacing: 10.0,
-                        labelStyle: TextStyle(
-                          color:
-                              Color.fromRGBO(255, 160, 160, 0.9176470588235294),
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        activeColor:
+                    RadioGroup<UserType>.builder(
+                      groupValue: LoginCubit.get(context).typeOfUserValue,
+                      onChanged: (UserType? value) {
+                        LoginCubit.get(context).changeTypeOfUser(value!);
+                      },
+                      items: LoginCubit.get(context).typeOfUser,
+                      itemBuilder: (item) => RadioButtonBuilder(item.name),
+                      textStyle: const TextStyle(
+                        color:
                             Color.fromRGBO(255, 160, 160, 0.9176470588235294),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
                       ),
+                      activeColor: const Color.fromRGBO(
+                        255,
+                        160,
+                        160,
+                        0.9176470588235294,
+                      ),
+                      horizontalAlignment: MainAxisAlignment.center,
+                      direction: Axis.horizontal,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 50.0,
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width / 1.5,
                       height: MediaQuery.of(context).size.height / 16.0,
                       child: state is! LoginUserLoadingState
@@ -148,7 +177,9 @@ class LoginScreen extends StatelessWidget {
                               color: const Color(0xFF628395),
                             )
                           : const Center(
-                              child: CircularProgressIndicator(),
+                              child: CircularProgressIndicator(
+                                color: Color(0xFFFFA0A0),
+                              ),
                             ),
                     ),
                     TextButton(
