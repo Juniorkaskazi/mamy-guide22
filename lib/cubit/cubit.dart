@@ -7,6 +7,7 @@ import 'package:mamy_guide/models/doctor_model.dart';
 import 'package:mamy_guide/models/message_model.dart';
 import 'package:mamy_guide/models/parent_model.dart';
 import 'package:mamy_guide/modules/common_diseases/drought_screen.dart';
+import 'package:mamy_guide/modules/common_diseases/fever_screen.dart';
 import 'package:mamy_guide/modules/common_diseases/stomach_cramps_screen.dart';
 import 'package:mamy_guide/modules/growth/weight_chart_data.dart';
 import 'package:mamy_guide/shared/components/constants.dart';
@@ -83,7 +84,7 @@ class AppCubit extends Cubit<AppStates> {
     HomeModel(
       image: 'fe',
       name: 'Fever',
-      nextPage: const StomachCrampsScreen(),
+      nextPage: const FeverScreen(),
     ),
     HomeModel(
       image: 'vs',
