@@ -154,9 +154,7 @@ class ParentScreen extends StatelessWidget {
                       state is! CreateNewParentLoadingState
                   ? MaterialButton(
                       onPressed: () {
-                        RegistrationCubit.get(context)
-                            .addNewParent()
-                            .then((value) {});
+                        RegistrationCubit.get(context).addNewParent();
                       },
                       child: const Text(
                         'Submit',

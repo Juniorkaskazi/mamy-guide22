@@ -121,7 +121,7 @@ class ParentProfileScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Row(
                       children: [
@@ -198,7 +198,7 @@ class ParentProfileScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Row(
                       children: [
@@ -431,7 +431,7 @@ class ParentProfileScreen extends StatelessWidget {
                           color: Colors.white.withOpacity(0.2),
                         ),
                         padding: const EdgeInsets.symmetric(
-                          vertical: 8.0,
+                          vertical: 5.0,
                           horizontal: 30.0,
                         ),
                         child: Row(
@@ -464,7 +464,7 @@ class ParentProfileScreen extends StatelessWidget {
                           color: Colors.white.withOpacity(0.2),
                         ),
                         padding: const EdgeInsets.symmetric(
-                          vertical: 8.0,
+                          vertical: 5.0,
                           horizontal: 30.0,
                         ),
                         child: Row(
@@ -497,7 +497,7 @@ class ParentProfileScreen extends StatelessWidget {
                           color: Colors.white.withOpacity(0.2),
                         ),
                         padding: const EdgeInsets.symmetric(
-                          vertical: 10,
+                          vertical: 5,
                           horizontal: 15.0,
                         ),
                         child: Row(

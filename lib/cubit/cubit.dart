@@ -66,7 +66,7 @@ class AppCubit extends Cubit<AppStates> {
     HomeModel(
       image: 'assets/images/Activity.png',
       name: 'Activity',
-      nextPage: const ActivityScreen(),
+      nextPage: ActivityScreen(),
     ),
   ];
 
@@ -239,7 +239,6 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  List<MessageModel> messagesList = [];
   var messageController = TextEditingController();
   //send message
   void sendMessage({
@@ -318,7 +317,6 @@ class AppCubit extends Cubit<AppStates> {
     required String receiverId,
   }) {
     if (userType == parentKey) {
-      messagesList = [];
       return FirebaseFirestore.instance
           .collection('parents')
           .doc(uId)
@@ -328,7 +326,6 @@ class AppCubit extends Cubit<AppStates> {
           .orderBy('date')
           .snapshots();
     } else {
-      messagesList = [];
       return FirebaseFirestore.instance
           .collection('doctors')
           .doc(uId)

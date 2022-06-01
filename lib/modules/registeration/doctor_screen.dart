@@ -110,9 +110,7 @@ class DoctorScreen extends StatelessWidget {
                       state is! CreateNewParentLoadingState
                   ? MaterialButton(
                       onPressed: () {
-                        RegistrationCubit.get(context)
-                            .addNewDoctor()
-                            .then((value) {});
+                        RegistrationCubit.get(context).addNewDoctor();
                       },
                       child: const Text(
                         'Submit',

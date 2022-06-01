@@ -194,7 +194,8 @@ class ChatScreen extends StatelessWidget {
                               return ListView.separated(
                                   controller: listController,
                                   itemBuilder: (context, index) {
-                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
                                       jumpToBottom();
                                     }
                                     if (snapshot.data!.docs[index]['sender'] ==

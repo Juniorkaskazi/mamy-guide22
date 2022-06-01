@@ -30,8 +30,10 @@ class HomeLayout extends StatelessWidget {
                   ),
                 ),
               );
-            } else if (AppCubit.get(context).doctorModel == null &&
-                userType == doctorKey) {
+            } else if ((AppCubit.get(context).doctorModel == null &&
+                    userType == doctorKey) ||
+                (AppCubit.get(context).parentModel == null &&
+                    userType == parentKey)) {
               return Container(
                 color: Theme.of(context).primaryColor,
                 width: double.infinity,
