@@ -143,7 +143,7 @@ class DoctorProfileScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 15.0),
                           Text(
-                            '${doctor.rate}',
+                            '${doctor.rate!.roundToDouble()}',
                             style: TextStyle(
                               fontSize: 20.0,
                               color: Colors.grey.shade500,

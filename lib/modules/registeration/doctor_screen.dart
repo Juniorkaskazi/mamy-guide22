@@ -95,15 +95,6 @@ class DoctorScreen extends StatelessWidget {
             const SizedBox(
               height: 20.0,
             ),
-            defaultTextFormField(
-              hint: 'Rating',
-              prefixIcon: Icons.star_rate,
-              type: TextInputType.number,
-              controller: RegistrationCubit.get(context).doctorRateController,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
             Align(
               alignment: AlignmentDirectional.bottomEnd,
               child: state is! AddNewParentLoadingState &&

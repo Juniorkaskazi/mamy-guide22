@@ -152,7 +152,8 @@ class RegistrationCubit extends Cubit<RegistrationStates> {
       doctorPhoneNumberController.text,
       doctorYearsOfExperienceController.text,
       doctorSpecialtyController.text,
-      double.parse(doctorRateController.text),
+      0,
+      0,
     );
     FirebaseFirestore.instance
         .collection('doctors')

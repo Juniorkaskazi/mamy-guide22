@@ -51,7 +51,7 @@ class AppCubit extends Cubit<AppStates> {
     HomeModel(
       image: 'assets/images/ChatWithDoctor.png',
       name: 'Chat With Doctor',
-      nextPage: const ChatWithDoctorScreen(),
+      nextPage: ChatWithDoctorScreen(),
     ),
     HomeModel(
       image: 'assets/images/CommonDiseases.png',
@@ -109,7 +109,9 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   List<int> childWeights = List.generate(6, (index) => index);
+  bool isNormalWeightGrowth = true;
   List<int> childHeights = List.generate(6, (index) => index);
+  bool isNormalHeightGrowth = true;
   List<double> normalWeight = [
     3.2,
     7.5,
@@ -135,10 +137,68 @@ class AppCubit extends Cubit<AppStates> {
     '2 Year',
   ];
 
+  void checkWeight() {
+    for (int i = 0; i < normalWeight.length; i++) {
+      if (childWeights[i] < normalWeight[i]) {
+        isNormalWeightGrowth = false;
+        break;
+      } else {
+        isNormalWeightGrowth = true;
+      }
+    }
+    emit(CheckWeightState());
+  }
+
+  void checkHeight() {
+    for (int i = 0; i < normalHeight.length; i++) {
+      if (childHeights[i] < normalHeight[i]) {
+        isNormalHeightGrowth = false;
+        break;
+      } else {
+        isNormalHeightGrowth = true;
+      }
+    }
+    emit(CheckHeightState());
+  }
+
+  void fillWeightChartData() {
+    weightChartData = [];
+    for (int i = 0; i < ageListText.length; i++) {
+      weightChartData.add(WeightChartData(ageListText[i], childWeights[i]));
+      normalWeightChartData
+          .add(NormalWeightChartData(ageListText[i], normalWeight[i]));
+    }
+    emit(FillWeightState());
+  }
+
+  void fillHeightChartData() {
+    heightChartData = [];
+    for (int i = 0; i < ageListText.length; i++) {
+      heightChartData.add(HeightChartData(ageListText[i], childHeights[i]));
+      normalHeightChartData
+          .add(NormalHeightChartData(ageListText[i], normalHeight[i]));
+    }
+    emit(FillHeightState());
+  }
+
+  void changeChildWeight(num, index) {
+    childWeights[index] = num;
+    emit(ChangeWeightState());
+  }
+
+  void changeChildHeight(num, index) {
+    childHeights[index] = num;
+    emit(ChangeHeightState());
+  }
+
   List<WeightChartData> weightChartData = [];
+  // List.generate(6, (index) => index as WeightChartData);
   List<NormalWeightChartData> normalWeightChartData = [];
+  // List.generate(6, (index) => index as NormalWeightChartData);
   List<HeightChartData> heightChartData = [];
+  // List.generate(6, (index) => index as HeightChartData);
   List<NormalHeightChartData> normalHeightChartData = [];
+  // List.generate(6, (index) => index as NormalHeightChartData);
   List<String> vaccinesSentences = [
     '-Hepatitis B (HepB) (1st dose)',
     '-Hepatitis B (HepB)  (2nd dose)',
@@ -219,24 +279,6 @@ class AppCubit extends Cubit<AppStates> {
   void openDrawer(BuildContext context) {
     scaffoldKey.currentState!.openDrawer();
     emit(OpenDrawerState());
-  }
-
-  void fillWeightChartData() {
-    for (int i = 0; i < ageListText.length; i++) {
-      weightChartData.add(WeightChartData(ageListText[i], childWeights[i]));
-      normalWeightChartData
-          .add(NormalWeightChartData(ageListText[i], normalWeight[i]));
-      print(i);
-    }
-  }
-
-  void fillHeightChartData() {
-    for (int i = 0; i < ageListText.length; i++) {
-      heightChartData.add(HeightChartData(ageListText[i], childHeights[i]));
-      normalHeightChartData
-          .add(NormalHeightChartData(ageListText[i], normalHeight[i]));
-      print(i);
-    }
   }
 
   var messageController = TextEditingController();
@@ -335,5 +377,23 @@ class AppCubit extends Cubit<AppStates> {
           .orderBy('date')
           .snapshots();
     }
+  }
+
+  double doctorRate = 0;
+  void makeDoctorRate(DoctorModel doctor) {
+    emit(DoctorRateLoadingState());
+    int numOfRate = doctor.numberOfRates ?? 0;
+    double rate = doctor.rate ?? 0;
+    numOfRate++;
+    rate = (rate + doctorRate) / 2;
+    FirebaseFirestore.instance.collection('doctors').doc(doctor.uId).update({
+      'rate': rate,
+      'numberOfRates': numOfRate,
+    }).then((value) {
+      emit(DoctorRateSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(DoctorRateErrorState());
+    });
   }
 }

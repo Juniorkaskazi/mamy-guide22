@@ -61,7 +61,9 @@ class BabyWeightDetailsScreen extends StatelessWidget {
               min: 1,
               max: 20,
               onValueChanged: (num) {
-                AppCubit.get(context).childWeights[index] = num.toInt();
+                print(num);
+                AppCubit.get(context).changeChildWeight(num, index);
+                print(AppCubit.get(context).childWeights[index]);
               },
             );
           },

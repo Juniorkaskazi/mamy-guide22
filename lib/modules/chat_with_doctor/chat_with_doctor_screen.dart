@@ -7,7 +7,7 @@ import 'package:mamy_guide/models/doctor_model.dart';
 import 'package:mamy_guide/modules/doctor_profile/doctor_profile_screen.dart';
 
 class ChatWithDoctorScreen extends StatelessWidget {
-  const ChatWithDoctorScreen({Key? key}) : super(key: key);
+  ChatWithDoctorScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +61,14 @@ class ChatWithDoctorScreen extends StatelessWidget {
   }) =>
       InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return DoctorProfileScreen(
-              doctor: doctor,
-            );
-          }));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return DoctorProfileScreen(
+                doctor: doctor,
+              );
+            }),
+          );
         },
         child: Row(
           children: [

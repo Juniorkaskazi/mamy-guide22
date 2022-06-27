@@ -61,7 +61,7 @@ class BabyHeightDetailsScreen extends StatelessWidget {
               min: 30,
               max: 100,
               onValueChanged: (num) {
-                AppCubit.get(context).childHeights[index] = num.toInt();
+                AppCubit.get(context).changeChildHeight(num, index);
               },
             );
           },

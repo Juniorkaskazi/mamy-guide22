@@ -6,6 +6,7 @@ class DoctorModel {
   String? yearsOfExperience;
   String? specialty;
   double? rate;
+  int? numberOfRates;
 
   DoctorModel(
     this.uId,
@@ -15,6 +16,7 @@ class DoctorModel {
     this.yearsOfExperience,
     this.specialty,
     this.rate,
+    this.numberOfRates,
   );
 
   DoctorModel.fromJason(Map<String, dynamic>? json) {
@@ -25,6 +27,7 @@ class DoctorModel {
     yearsOfExperience = json['yearsOfExperience'];
     specialty = json['specialty'];
     rate = json['rate'];
+    numberOfRates = json['numberOfRates'];
   }
 
   Map<String, dynamic> toJson() {
@@ -36,6 +39,7 @@ class DoctorModel {
       'yearsOfExperience': yearsOfExperience,
       'specialty': specialty,
       'rate': rate,
+      'numberOfRates': numberOfRates,
     };
     return map;
   }

@@ -11,6 +11,7 @@ class HeightChartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppCubit.get(context).fillHeightChartData();
+    AppCubit.get(context).checkHeight();
     print(AppCubit.get(context).weightChartData);
     return BlocConsumer<AppCubit, AppStates>(
       listener: (BuildContext context, AppStates states) {},
@@ -95,6 +96,19 @@ class HeightChartScreen extends StatelessWidget {
                   ),
                   tooltipBehavior: TooltipBehavior(enable: true),
                 ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                if (!AppCubit.get(context).isNormalHeightGrowth)
+                  const Text(
+                    'Your baby has wrong in carve, please contact to doctor!',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.w900,
+                      decoration: TextDecoration.underline,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
               ],
             ),
           ),
