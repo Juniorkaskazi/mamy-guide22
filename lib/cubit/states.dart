@@ -47,3 +47,5 @@ class DoctorRateSuccessState extends AppStates {}
 class DoctorRateErrorState extends AppStates {}
 
 class RefreshMessagesState extends AppStates {}
+
+class ChangeValueState extends AppStates {}

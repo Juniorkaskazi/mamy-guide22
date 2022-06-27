@@ -27,6 +27,10 @@ class AppCubit extends Cubit<AppStates> {
 
   static AppCubit get(BuildContext context) => BlocProvider.of(context);
 
+  void changeValue() {
+    emit(ChangeValueState());
+  }
+
   List<HomeModel> homeModel = [
     HomeModel(
       image: 'assets/images/Growth.png',

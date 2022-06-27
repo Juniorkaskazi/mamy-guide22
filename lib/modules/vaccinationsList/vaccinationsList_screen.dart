@@ -8,6 +8,38 @@ class VaccinationsListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool _hebBBirthValue = true;
+    bool _hebB1to2Month = true;
+    bool _hebB6to18Month = false;
+
+    bool _dt2th = true;
+    bool _dt4th = true;
+    bool _dt6th = true;
+    bool _dt15to18Month = false;
+
+    bool _hib2th = true;
+    bool _hib4th = true;
+    bool _hib6th = true;
+    bool _hib12to18Month = false;
+
+    bool _ipv2th = true;
+    bool _ipv4th = true;
+    bool _ipv6to18Month = false;
+
+    bool _pcv2th = true;
+    bool _pcv4th = true;
+    bool _pcv6th = true;
+    bool _pcv12to15Month = false;
+
+    bool _rv2th = true;
+    bool _rv4th = true;
+    bool _rv6th = true;
+
+    bool _fluValue = false;
+    bool _hepAValue = false;
+    bool _mmrValue = false;
+    bool _varicellaValue = false;
+
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -45,63 +77,184 @@ class VaccinationsListScreen extends StatelessWidget {
                 Row(
                   children: [
                     nameItem(context, 'Hep B'),
-                    checkBoxItem(context: context, text: 'Birth', value: true),
                     checkBoxItem(
-                        context: context, text: '1-2 month', value: true),
+                      context: context,
+                      text: 'Birth',
+                      value: _hebBBirthValue,
+                      onChanged: (value) {
+                        _hebBBirthValue = value;
+                      },
+                    ),
                     checkBoxItem(
-                        context: context, text: '6-18 month', value: false),
+                        context: context,
+                        text: '1-2 month',
+                        value: _hebB1to2Month,
+                        onChanged: (value) {
+                          _hebB1to2Month = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '6-18 month',
+                        value: _hebB6to18Month,
+                        onChanged: (value) {
+                          _hebB6to18Month = value;
+                        }),
                   ],
                 ),
                 defaultHorizontalSizedBox(),
                 Row(
                   children: [
                     nameItem(context, 'DTaP'),
-                    checkBoxItem(context: context, text: '2th', value: true),
-                    checkBoxItem(context: context, text: '4th', value: true),
-                    checkBoxItem(context: context, text: '6th', value: true),
                     checkBoxItem(
-                        context: context, text: '15-18 month', value: false),
+                        context: context,
+                        text: '2th',
+                        value: _dt2th,
+                        onChanged: (value) {
+                          _dt2th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '4th',
+                        value: _dt4th,
+                        onChanged: (value) {
+                          _dt4th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '6th',
+                        value: _dt6th,
+                        onChanged: (value) {
+                          _dt6th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '15-18 month',
+                        value: _dt15to18Month,
+                        onChanged: (value) {
+                          _dt15to18Month = value;
+                        }),
                   ],
                 ),
                 defaultHorizontalSizedBox(),
                 Row(
                   children: [
                     nameItem(context, 'Hib'),
-                    checkBoxItem(context: context, text: '2th', value: true),
-                    checkBoxItem(context: context, text: '4th', value: true),
-                    checkBoxItem(context: context, text: '6th', value: true),
                     checkBoxItem(
-                        context: context, text: '12-15 month', value: false),
+                        context: context,
+                        text: '2th',
+                        value: _hib2th,
+                        onChanged: (value) {
+                          _hib2th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '4th',
+                        value: _hib4th,
+                        onChanged: (value) {
+                          _hib4th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '6th',
+                        value: _hib6th,
+                        onChanged: (value) {
+                          _hib6th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '12-15 month',
+                        value: _hib12to18Month,
+                        onChanged: (value) {
+                          _hib12to18Month = value;
+                        }),
                   ],
                 ),
                 defaultHorizontalSizedBox(),
                 Row(
                   children: [
                     nameItem(context, 'IPV'),
-                    checkBoxItem(context: context, text: '2th', value: true),
-                    checkBoxItem(context: context, text: '4th', value: true),
                     checkBoxItem(
-                        context: context, text: '6-18 month', value: false),
+                        context: context,
+                        text: '2th',
+                        value: _ipv2th,
+                        onChanged: (value) {
+                          _ipv2th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '4th',
+                        value: _ipv4th,
+                        onChanged: (value) {
+                          _ipv4th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '6-18 month',
+                        value: _ipv6to18Month,
+                        onChanged: (value) {
+                          _ipv6to18Month = value;
+                        }),
                   ],
                 ),
                 defaultHorizontalSizedBox(),
                 Row(
                   children: [
                     nameItem(context, 'PCV'),
-                    checkBoxItem(context: context, text: '2th', value: true),
-                    checkBoxItem(context: context, text: '4th', value: true),
-                    checkBoxItem(context: context, text: '6th', value: true),
                     checkBoxItem(
-                        context: context, text: '12-15 month', value: false),
+                        context: context,
+                        text: '2th',
+                        value: _pcv2th,
+                        onChanged: (value) {
+                          _pcv2th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '4th',
+                        value: _pcv4th,
+                        onChanged: (value) {
+                          _pcv4th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '6th',
+                        value: _pcv6th,
+                        onChanged: (value) {
+                          _pcv6th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '12-15 month',
+                        value: _pcv12to15Month,
+                        onChanged: (value) {
+                          _pcv12to15Month = value;
+                        }),
                   ],
                 ),
                 defaultHorizontalSizedBox(),
                 Row(
                   children: [
                     nameItem(context, 'RV'),
-                    checkBoxItem(context: context, text: '2th', value: true),
-                    checkBoxItem(context: context, text: '4th', value: true),
-                    checkBoxItem(context: context, text: '6th', value: true),
+                    checkBoxItem(
+                        context: context,
+                        text: '2th',
+                        value: _rv2th,
+                        onChanged: (value) {
+                          _rv2th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '4th',
+                        value: _rv4th,
+                        onChanged: (value) {
+                          _rv4th = value;
+                        }),
+                    checkBoxItem(
+                        context: context,
+                        text: '6th',
+                        value: _rv6th,
+                        onChanged: (value) {
+                          _rv6th = value;
+                        }),
                   ],
                 ),
                 defaultHorizontalSizedBox(),
@@ -111,9 +264,12 @@ class VaccinationsListScreen extends StatelessWidget {
                     checkBoxItem(
                       context: context,
                       text: 'Every flu season after 6th',
-                      value: false,
+                      value: _fluValue,
                       width: MediaQuery.of(context).size.width / 2,
                       fontSize: 13,
+                      onChanged: (value) {
+                        _fluValue = value;
+                      },
                     ),
                   ],
                 ),
@@ -124,7 +280,10 @@ class VaccinationsListScreen extends StatelessWidget {
                     checkBoxItem(
                       context: context,
                       text: '12-20 month',
-                      value: false,
+                      value: _hepAValue,
+                      onChanged: (value) {
+                        _hepAValue = value;
+                      },
                     ),
                   ],
                 ),
@@ -135,7 +294,10 @@ class VaccinationsListScreen extends StatelessWidget {
                     checkBoxItem(
                       context: context,
                       text: '12-15 month',
-                      value: false,
+                      value: _mmrValue,
+                      onChanged: (value) {
+                        _mmrValue = value;
+                      },
                     ),
                   ],
                 ),
@@ -146,7 +308,10 @@ class VaccinationsListScreen extends StatelessWidget {
                     checkBoxItem(
                       context: context,
                       text: '12-15 month',
-                      value: false,
+                      value: _varicellaValue,
+                      onChanged: (value) {
+                        _varicellaValue = value;
+                      },
                     ),
                   ],
                 ),
@@ -186,7 +351,7 @@ class VaccinationsListScreen extends StatelessWidget {
     required BuildContext context,
     required String text,
     required bool value,
-    Function(bool?)? onChanged,
+    required Function(bool value) onChanged,
     double? width,
     double fontSize = 10.1,
   }) =>
@@ -206,7 +371,8 @@ class VaccinationsListScreen extends StatelessWidget {
             Checkbox(
               value: value,
               onChanged: (v) {
-                onChanged!(v);
+                AppCubit.get(context).changeValue();
+                onChanged(v!);
               },
             ),
           ],
