@@ -45,8 +45,7 @@ dependencies:
   counter:
   syncfusion_flutter_charts:
   flutter_conditional_rendering:
-  adobe_xd:
-  google_maps_flutter: ^2.1.4
+  simple_star_rating:
 
 dev_dependencies:
   flutter_test:
